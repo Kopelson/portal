@@ -4,7 +4,7 @@ import "firebase/auth";
 import API from "./API";
 
 //this creates an new user in database if firebase user doesn't exist
-const createNewUser = () => {
+function createNewUser() {
     console.log(firebase.auth().currentUser);
     let name = firebase.auth().currentUser.displayName;
     let nameArr = name.split(" ");
