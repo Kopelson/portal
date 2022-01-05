@@ -3,6 +3,8 @@ import { Navigate, Link } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext';
 import fire from '../../utils/firebase';
 
+import "./styles.css";
+
 export default function Login() {
   const [isAuthenticated, setAuthentication] = useContext(AuthContext);
   const [isButtonDisabled, setButtonState] = useState(false);
@@ -41,7 +43,7 @@ export default function Login() {
   if (isAuthenticated === true) return <Navigate to='/' />;
   return (
     <section>
-      <div>
+      <div className='sign-in-container'>
         <div>
           <h2>Sign in</h2>
           <form onSubmit={login}>

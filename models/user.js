@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  firstName: {
-    type: String,
-  },
-  lastName: {
+  name: {
     type: String,
   },
   email: {
+    type: String,
+  },
+  suite: {
     type: String,
   },
   firebase_uid: {

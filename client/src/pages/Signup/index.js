@@ -2,6 +2,7 @@ import { useContext, useState, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext';
 import fire from '../../utils/firebase';
+import API from '../../utils/API';
 
 export default function Signup() {
   const [isAuthenticated, setAuthentication] = useContext(AuthContext);
@@ -9,6 +10,7 @@ export default function Signup() {
   const nameRef = useRef('');
   const emailRef = useRef('');
   const passwordRef = useRef('');
+  const suiteRef = useRef('');
 
   async function signup(event) {
     event.preventDefault();
@@ -17,12 +19,29 @@ export default function Signup() {
     const name = nameRef.current.value.trim();
     const email = emailRef.current.value.trim();
     const password = passwordRef.current.value;
+    const suite = suiteRef.current.value.trim();
 
     try {
-      const { user } = await fire.auth().createUserWithEmailAndPassword(email, password);
-      user.updateProfile({ displayName: name });
-      await fire.auth().signInWithEmailAndPassword(email, password); // Force auth.currentUser to update
-      setAuthentication(true);
+      const { user } = await fire.auth().createUserWithEmailAndPassword(email, password)
+      .then((res) => {
+        console.log(res.user.uid);
+        API.createUser({
+            name: name,
+            email: email,
+            suite: suite,
+            firebase_uid: res.user.uid
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+        }
+      ).then(() => {
+        user.updateProfile({ displayName: name });
+        fire.auth().signInWithEmailAndPassword(email, password); // Force auth.currentUser to update
+        setAuthentication(true);
+      }
+      );
+      
     } catch (error) {
       passwordRef.current.value = '';
       setButtonState(false);
@@ -33,7 +52,7 @@ export default function Signup() {
   if (isAuthenticated === true) return <Navigate to='/' />
   return (
     <section>
-      <div>
+      <div className='sign-in-container'>
         <div>
           <h2>Create Account</h2>
           <form onSubmit={signup}>
@@ -71,6 +90,16 @@ export default function Signup() {
               autoComplete="new-password"
               required
               ref={passwordRef}
+            />
+            <label htmlFor="suite">Suite Number</label>
+            <input
+              type="text"
+              id="suite"
+              name="suite"
+              autoCapitalize="off"
+              spellCheck="false"
+              required
+              ref={suiteRef}
             />
             <button disabled={isButtonDisabled}>Create Account</button>
           </form>

@@ -1,0 +1,38 @@
+section {
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+}
+
+.sign-in-container {
+    width: 80%;
+    margin: auto;
+    padding: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 4px 4px 4px 0px;
+    background-color: lightblue;
+}
+
+.sign-in-container h2 {
+    font-size: 32px;
+    padding: 15px;
+    text-align: center;
+}
+
+.sign-in-container button {
+    background-color: white;
+    padding: 15px 20px;
+}
+
+.sign-in-container p {
+    text-align: center;
+    padding: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
