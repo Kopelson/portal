@@ -12,6 +12,7 @@ export default function Signup() {
   const passwordRef = useRef('');
   const suiteRef = useRef('');
 
+
   async function signup(event) {
     event.preventDefault();
     setButtonState(true);
@@ -24,7 +25,6 @@ export default function Signup() {
     try {
       const { user } = await fire.auth().createUserWithEmailAndPassword(email, password)
       .then((res) => {
-        console.log(res.user.uid);
         API.createUser({
             name: name,
             email: email,
@@ -33,15 +33,12 @@ export default function Signup() {
           })
           .catch((err) => {
             console.log(err.message);
+          }).then(() => {
+            fire.auth().signInWithEmailAndPassword(email, password); // Force auth.currentUser to update
+            setAuthentication(true);
           });
         }
-      ).then(() => {
-        user.updateProfile({ displayName: name });
-        fire.auth().signInWithEmailAndPassword(email, password); // Force auth.currentUser to update
-        setAuthentication(true);
-      }
       );
-      
     } catch (error) {
       passwordRef.current.value = '';
       setButtonState(false);
@@ -91,7 +88,7 @@ export default function Signup() {
               required
               ref={passwordRef}
             />
-            <label htmlFor="suite">Suite Number</label>
+            <label htmlFor="suite">Suite </label>
             <input
               type="text"
               id="suite"
