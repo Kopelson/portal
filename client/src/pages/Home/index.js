@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import fire from "../../utils/firebase";
 
@@ -23,9 +24,12 @@ function Home() {
 
   return (
     <div>
-      <h1>Hello {user.name}</h1>
-      <p>Email: {user.email}</p>
-      <p>Suite: {user.suite}</p>
+      <section>
+      <Jumbotron
+        title={"Welcome "+ user.name + "!"}
+        body={user.email}
+      />
+      </section>
     </div>
   );
 }

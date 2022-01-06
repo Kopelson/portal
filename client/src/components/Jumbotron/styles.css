@@ -1,0 +1,16 @@
+.jumbotron {
+    width: 80%;
+    min-height: 50vh;
+    margin: auto;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(173, 230, 206);
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 4px 4px 4px 0px;
+}
+
+.jumbotron h1 {
+    font-size: 32px;
+}
