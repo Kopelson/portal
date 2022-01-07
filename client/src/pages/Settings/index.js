@@ -4,9 +4,15 @@ import Jumbotron from "../../components/Jumbotron";
 import Button from "../../components/Button";
 import fire from '../../utils/firebase';
 import API from '../../utils/API';
+import { getAuth, updateEmail, updateProfile  } from "firebase/auth";
+
 
 import './styles.css';
 
+const signOut = () => {
+  fire.auth().signOut();
+  window.location.reload();
+}
 
 function Settings() {
   const [formData, setFormData] = useState({ 
@@ -49,19 +55,45 @@ function Settings() {
       setError("Please enter your suite number");
     } else {
       setError("");
-      const uid = fire.auth().currentUser.uid
-      API.updateUser(uid, formData)
-        .then(() => {
-          setError(
-            "Your name has been updated. Go back to the dashboard to view the change"
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-          setError("Failed to update user");
-        });
+      // Updates Firebase Authentication Profile
+      const auth = getAuth();   
+      updateProfile(auth.currentUser, {displayName : formData.name})
+      .catch((error) => {
+          setFormData({ ...formData, name: auth.currentUser.displayName })
+          setError("Failed to update user - " + error.message); 
+          updateDatabase(error.message);
+         
+      })
+      
+      updateEmail(auth.currentUser, formData.email)
+      .catch((error) => {
+        setFormData({ ...formData, email: auth.currentUser.email })
+        setError("Failed to update user - "  + error.message); 
+        updateDatabase(error.message);
+        
+      })
+
+      updateDatabase()
+  
     }
   };
+
+  const updateDatabase = (message) => {
+    const uid = fire.auth().currentUser.uid
+        API.updateUser(uid, formData)
+        .then(() => {
+          setError(
+            "Your account has been updated. Go back to the home to view the change"
+          );
+          if(message){
+            setError(message);
+          }
+        })
+        .catch((err) => {
+  
+          setError("Failed to update user"); 
+        });
+  }
 
   return (
     <div>
@@ -113,12 +145,19 @@ function Settings() {
             />
           </form>
           </div>
-        <Link to="/">
-          <Button
-            label="Home"
-            classes="btn"
-          />
+        <div className="nav-button-container">   
+          <Link to="/">
+            <Button
+              label="Home"
+              classes="btn"
+            />
           </Link>
+          <Button
+            classes="btn"
+            onClick={signOut}
+            label="Sign Out"
+          />
+      </div>
     </div>
   );
 }

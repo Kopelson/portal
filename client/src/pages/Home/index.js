@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import Button from "../../components/Button";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import fire from "../../utils/firebase";
@@ -21,11 +20,6 @@ function Home() {
     });
   };
 
-  const signOut = () => {
-    fire.auth().signOut();
-    window.location.reload();
-  }
-
   useEffect(() => {
     getUser();
   }, []);
@@ -44,14 +38,6 @@ function Home() {
         body={"Message of the Day: Welcome to the Liberty Lake Portal! "}
       />
       </section>
-      <div className="sign-out-container">
-        <Button
-          classes="btn"
-          onClick={signOut}
-          label="Sign Out"
-        />
-      </div>
-      
     </div>
   );
 }
