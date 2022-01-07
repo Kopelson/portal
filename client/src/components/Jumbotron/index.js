@@ -8,6 +8,7 @@ function Jumbotron(props) {
         <div>
             <div>
                 <h1>{props.title}</h1>
+                <h2>{props.subtitle}</h2>
             </div>
             <hr />
             <div>

@@ -1,8 +1,3 @@
-section {
-    min-height: 70vh;
-    display: flex;
-    justify-content: center;
-}
 
 .sign-in-container {
     width: 80%;
@@ -18,11 +13,6 @@ section {
     font-size: 32px;
     padding: 15px;
     text-align: center;
-}
-
-.sign-in-container button {
-    background-color: white;
-    padding: 15px 20px;
 }
 
 .sign-in-container p {

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Settings from './pages/Settings';
 import NoMatch from './pages/NoMatch';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -31,18 +32,29 @@ function App() {
     }
   }
 
+  function renderSettings() {
+    if (isAuthenticated === false) {
+      return <Login />;
+    } else if (isAuthenticated === true) {
+      return <Settings />;
+    } else {
+      return null;
+    }
+  }
+
   return (
     <AuthContext.Provider value={[isAuthenticated, setAuthentication]}>
-      <Header />
         <Router>
+          <Header />
           <Routes>
             <Route path="/" element={renderHome()}/>
             <Route path="/login" element={<Login /> }/>
             <Route path="/signup" element={<Signup /> }/>
+            <Route path="/settings" element={renderSettings()} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
+          <Footer />
         </Router>
-      <Footer />
     </AuthContext.Provider>
   
   );

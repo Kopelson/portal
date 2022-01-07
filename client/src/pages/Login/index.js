@@ -1,5 +1,7 @@
 import { useContext, useState, useRef } from 'react';
 import { Navigate, Link } from 'react-router-dom';
+import Jumbotron from '../../components/Jumbotron';
+import Button from '../../components/Button';
 import AuthContext from '../../contexts/AuthContext';
 import fire from '../../utils/firebase';
 
@@ -42,6 +44,12 @@ export default function Login() {
   if (isAuthenticated === null) return null;
   if (isAuthenticated === true) return <Navigate to='/' />;
   return (
+    <div>
+    <Jumbotron 
+      title="Welcome!"
+      body="There's space for you at the Liberty Lake Portal!"
+    >
+    </Jumbotron>
     <section>
       <div className='sign-in-container'>
         <div>
@@ -68,11 +76,16 @@ export default function Login() {
               required
               ref={passwordRef}
             />
-            <button disabled={isButtonDisabled}>Login</button>
+            <Button
+              label="Login"
+              disabled={isButtonDisabled}
+              classes="btn"
+            />
           </form>
           <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
         </div>
       </div>
     </section>
+    </div>
   );
 }

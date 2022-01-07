@@ -53,7 +53,7 @@ export default function Signup() {
         <div>
           <h2>Create Account</h2>
           <form onSubmit={signup}>
-            <label htmlFor="name">Full name</label>
+            <label htmlFor="name">Name</label>
             <input
               type="text"
               id="name"
@@ -88,7 +88,7 @@ export default function Signup() {
               required
               ref={passwordRef}
             />
-            <label htmlFor="suite">Suite </label>
+            <label htmlFor="suite">Suite Number</label>
             <input
               type="text"
               id="suite"

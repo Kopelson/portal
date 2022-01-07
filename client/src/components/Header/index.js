@@ -1,11 +1,13 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+
 import './styles.css';
 
 function Header() {
   return (
-   <header>
-       <h1>Liberty Lake Portal</h1>
-   </header>
+    <header>
+      <Link to="/">Liberty Lake Portal</Link>    
+    </header>
   );
 }
 

@@ -1,0 +1,8 @@
+.btn {
+    background-color: lightgrey;
+    padding: 15px 20px;
+}
+
+.btn:hover {
+    background-color: rgba(211, 211, 211, 0.719);
+}
