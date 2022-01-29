@@ -1,5 +1,9 @@
+require('dotenv').config();
+
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors');
+const decodeIDToken = require('./middlewares/authenticateToken');
 const routes = require("./routes");
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -9,6 +13,8 @@ const app = express();
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
+app.use(decodeIDToken);
 
 
 // Serve up static assets (usually on heroku)
