@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Settings from './pages/Settings';
+import Wifi from './pages/Wifi';
 import NoMatch from './pages/NoMatch';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -51,6 +52,7 @@ function App() {
             <Route path="/login" element={<Login /> }/>
             <Route path="/signup" element={<Signup /> }/>
             <Route path="/settings" element={renderSettings()} />
+            <Route path="/wifi" element={<Wifi /> }/>
             <Route path="*" element={<NoMatch />} />
           </Routes>
           <Footer />

@@ -7,7 +7,7 @@ function Jumbotron(props) {
     <div className="jumbotron">
         <div>
             <div>
-                <h1>{props.title}</h1>
+                <h1>{props.title.toUpperCase()}</h1>
                 <h2>{props.subtitle}</h2>
             </div>
             <hr />

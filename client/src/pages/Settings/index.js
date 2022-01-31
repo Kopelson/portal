@@ -29,7 +29,6 @@ function Settings() {
        const uid = fire.auth().currentUser.uid
         API.getUser(uid).then((response) => {
           if(componentMounted) {
-            console.log(response);
             setFormData(response?.data);
           }
         })

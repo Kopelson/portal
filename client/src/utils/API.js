@@ -22,7 +22,6 @@ const API =  {
       obj
     }
     try {
-      console.log(payload);
       const res = await axios.post("/api/users", payload, header);
       return res.data;
 
@@ -35,7 +34,6 @@ const API =  {
 
     try {
       const res = await axios.get("/api/users/" + id, header);
-      console.log(res.data);
       return res;
     } catch (e) {
       console.error(e);

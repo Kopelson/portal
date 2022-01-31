@@ -10,12 +10,10 @@ module.exports = {
   // },
   findById: async function (req, res) {
     const auth = req.currentUser;
-    console.log("--->Finding User by ID<---");
-    console.log(auth);
+    
     if (auth) {
     db.User.findOne({firebase_uid: req.params.id})
     .then((user) => {
-      console.log("Database found this: " + user);
       res.json(user)
     })
     .catch((err) => res.status(422).json(err));
@@ -25,10 +23,8 @@ module.exports = {
   },
   create: function (req, res) {
     const auth = req.currentUser;
-    console.log("--->creating new User<---");
-    console.log(auth);
+    
     if(auth) {
-      console.log(req.body.obj)
       db.User.create(req.body.obj)
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
@@ -39,8 +35,7 @@ module.exports = {
   },
   update: function (req, res) {
     const auth = req.currentUser;
-    console.log("--->Updating User by ID<---");
-    console.log(auth);
+  
     if(auth) {
     db.User.findOneAndUpdate({ firebase_uid: req.params.id }, req.body)
       .then((dbModel) => res.json(dbModel))
