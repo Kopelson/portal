@@ -13,12 +13,25 @@ function Home() {
     email: "",
     suite: ""
   });
+  const [hasError, setHasError] = useState(false);
 
   const getUser = () => {
     const uid = fire.auth().currentUser.uid
-    API.getUser(uid).then((res) => {
+    API.getUser(uid)
+    .then((res) => {
       setUser(res.data);
-    });
+    })
+    .catch((err) => {
+      if(err){
+       setHasError(true);
+       setUser({
+        name: "",
+        email: "",
+        suite: ""
+       }) 
+      }
+    }
+    );
   };
 
   useEffect(() => {
@@ -26,23 +39,28 @@ function Home() {
   }, []);
 
   return (
-    <div>
-      {/* <div className="settings-container">
-        <Link to="/settings">
-          <i className="fas fa-user settings-icon"></i>
-         </Link>  
-       </div> */}
-      <section>
-      <Jumbotron
-        title={"Hello "+ user.name + "!"}
-        subtitle={"Email: " + user.email + " | Suite: " + user.suite}
-        body={"Message of the Day: Welcome to the Liberty Lake Portal! "}
-      />
-      {/* <Button 
-        label="Submit a Ticket" 
-        classes="btn" 
-      /> */}
-      </section>
+  <div>
+    {hasError ? (
+      <div>
+        Something Went Wrong
+      </div>
+    ) : (
+      <div>
+        <section>
+        <Jumbotron
+          title={"Hello "+ user.name + "!"}
+          subtitle={"Email: " + user.email + " | Suite: " + user.suite}
+          body={"Message of the Day: Welcome to the Liberty Lake Portal! "}
+        />
+        </section>
+      </div>
+    )
+  
+  
+  }
+
+    
+      
     </div>
   );
 }

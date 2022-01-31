@@ -80,6 +80,7 @@ function Settings() {
 
   const updateDatabase = (message) => {
     const uid = fire.auth().currentUser.uid
+        console.log(formData);
         API.updateUser(uid, formData)
         .then(() => {
           setError(

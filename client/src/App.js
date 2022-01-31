@@ -43,6 +43,16 @@ function App() {
     }
   }
 
+  function renderWifi() {
+    if (isAuthenticated === false) {
+      return <Login />;
+    } else if (isAuthenticated === true) {
+      return <Wifi />;
+    } else {
+      return null;
+    }
+  }
+
   return (
     <AuthContext.Provider value={[isAuthenticated, setAuthentication]}>
         <Router>
@@ -52,7 +62,7 @@ function App() {
             <Route path="/login" element={<Login /> }/>
             <Route path="/signup" element={<Signup /> }/>
             <Route path="/settings" element={renderSettings()} />
-            <Route path="/wifi" element={<Wifi /> }/>
+            <Route path="/wifi" element={renderWifi() }/>
             <Route path="*" element={<NoMatch />} />
           </Routes>
           <Footer />

@@ -42,12 +42,8 @@ const API =  {
   updateUser: async function (id, obj) {
     const header = await createToken();
 
-    const payload = {
-      obj
-    }
-
     try {
-      const res = await axios.put("api/users/" + id, payload, header);
+      const res = await axios.put("api/users/" + id, obj, header);
       return res.data;
     } catch (e) {
       console.error(e);
