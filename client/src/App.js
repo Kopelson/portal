@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Settings from './pages/Settings';
 import Wifi from './pages/Wifi';
+import Admin from './pages/Admin';
 import NoMatch from './pages/NoMatch';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -28,6 +29,16 @@ function App() {
       return <Login />;
     } else if (isAuthenticated === true) {
       return <Home />;
+    } else {
+      return null;
+    }
+  }
+
+  function renderAdmin() {
+    if (isAuthenticated === false) {
+      return <Login />;
+    } else if (isAuthenticated === true) {
+      return <Admin />;
     } else {
       return null;
     }
@@ -63,6 +74,7 @@ function App() {
             <Route path="/signup" element={<Signup /> }/>
             <Route path="/settings" element={renderSettings()} />
             <Route path="/wifi" element={renderWifi() }/>
+            <Route path="/admin" element={renderAdmin()} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
           <Footer />
