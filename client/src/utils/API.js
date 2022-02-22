@@ -29,6 +29,16 @@ const API =  {
       console.error(e);
     }
   },
+  getUsers: async function () {
+    const header = await createToken();
+
+    try {
+      const res = await axios.get("/api/users", header);
+      return res;
+    } catch (e) {
+      console.error(e);
+    }
+  },
   getUser: async function (id) {
     const header = await createToken();
 
