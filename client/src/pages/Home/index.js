@@ -11,11 +11,16 @@ function Home() {
   const [user, setUser] = useState({
     name: "",
     email: "",
-    suite: ""
+    suite: "",
+    receive_emails: false,
+    receive_texts: false,
+    receive_alerts: false,
+    roles: ""
   });
   const [hasError, setHasError] = useState(false);
 
   const getUser = () => {
+    console.log(fire.auth().currentUser);
     const uid = fire.auth().currentUser.uid
     API.getUser(uid)
     .then((res) => {
@@ -27,7 +32,11 @@ function Home() {
        setUser({
         name: "",
         email: "",
-        suite: ""
+        suite: "",
+        receive_emails: false,
+        receive_texts: false,
+        receive_alerts: false,
+        roles: ""
        }) 
       }
     }
@@ -35,7 +44,16 @@ function Home() {
   };
 
   useEffect(() => {
-    getUser();
+    let componentMounted = true;
+    const fetchData = async () => {
+      if(componentMounted){
+        getUser();
+      }
+    }
+    fetchData();
+      return () => {
+        componentMounted = false;
+      }
   }, []);
 
   return (
@@ -52,15 +70,14 @@ function Home() {
           subtitle={"Email: " + user.email + " | Suite: " + user.suite}
           body={"Message of the Day: Welcome to the Liberty Lake Portal! "}
         />
+        <h1>Emails: {user.receive_emails ? "yes":"no"}</h1>
+        <h1>Texts: {user.receive_texts ? "yes":"no"}</h1>
+        <h1>Notifications: {user.receive_alerts ? "yes":"no"}</h1>
+        <h1>Roles: {user.roles}</h1>
         </section>
       </div>
     )
-  
-  
   }
-
-    
-      
     </div>
   );
 }

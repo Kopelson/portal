@@ -64,20 +64,23 @@ function Admin() {
       <div>
         <h1>Admin Page</h1>
         <table id="users">
-          <tr>
+          <thead>
+            <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Suite</th>
             <th>Roles</th>
             <th>Receive emails</th>
             <th>Receive texts</th>
-            <th>Receive alerts</th>
+            <th>Receive Notifications</th>
             <th>Edit</th>
             <th>Delete</th>
-          </tr>
+            </tr>
+          </thead>
+          <tbody>
         {users.length ? (
           users.map(user => (
-            <tr>
+            <tr key={user._id}>
               <td>
                 {user.name}
               </td>
@@ -137,7 +140,9 @@ function Admin() {
             NA
             </td>
           </tr>
-        )}</table>
+        )}
+          </tbody>
+        </table>
         
       </div>
     )

@@ -18,8 +18,12 @@ function Settings() {
   const [formData, setFormData] = useState({ 
     name: "", 
     email: "",
-    suite: "" 
+    suite: "" ,
+    receive_emails: false,
+    receive_texts: false,
+    receive_alerts: false
   });
+  
   const [error, setError] = useState();
 
   useEffect(() => {
@@ -43,6 +47,23 @@ function Settings() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    console.log(formData);
+  };
+
+  //this handles changes to the form
+  const handleCheckboxChange = (e) => {
+    let { name, value } = e.target;
+    console.log(value);
+    if(value === "true"){
+      console.log("on is now off")
+      value= false;
+    }
+    if(value === "false"){
+      console.log("off is now on")
+      value= true;
+    }
+    setFormData({ ...formData, [name]: value });
+    console.log(formData);
   };
 
   const handleSubmit = (e) => {
@@ -91,7 +112,6 @@ function Settings() {
           }
         })
         .catch((err) => {
-  
           setError("Failed to update user"); 
         });
   }
@@ -139,6 +159,36 @@ function Settings() {
               spellCheck="false"
               required
               onChange={handleInputChange}
+            />
+            <label htmlFor="receive_texts">Receive Emails</label>
+            <input
+            
+              type="checkbox"
+              value={formData.receive_emails  ? true : false}
+              checked={formData.receive_emails}
+              id="receive_emails"
+              name="receive_emails"
+              onChange={handleCheckboxChange}
+            />
+            <label htmlFor="receive_texts">Receive Texts</label>
+            <input
+          
+              type="checkbox"
+              value={formData.receive_texts ? true : false}
+              checked={formData.receive_texts}
+              id="receive_texts"
+              name="receive_texts"
+              onChange={handleCheckboxChange}
+            />
+            <label htmlFor="receive_alerts">Receive Notifications</label>
+            <input
+
+              value={formData.receive_alerts ? true : false}
+              checked={formData.receive_alerts}
+              type="checkbox"
+              id="receive_alerts"
+              name="receive_alerts"
+              onChange={handleCheckboxChange}
             />
             <Button 
               label="Edit"
